@@ -162,8 +162,17 @@ const eventListeners = () => {
   
   // FILTER BUTTON ROW
   document.querySelector('#filterContainer').addEventListener('click', (e) => {
-    console.log("You clicked a filter button", e.target.id);
+    // console.log("You clicked a filter button", e.target.id);
     // filter on category (either use .filter or a loop)
+    if (e.target.id === "clear"){
+      cardsOnDom(data)
+    } else if (e.target.id === "favorite"){
+    const favs = data.filter(taco => taco.favorite === true)
+    cardsOnDom(favs)
+    } else if (e.target.id){
+      const gorycat = data.filter (taco => taco.category === e.target.id)
+      cardsOnDom(gorycat)
+    }
     // rerender DOM with new array (use the cardsOnDom function)
   });
 
@@ -172,8 +181,10 @@ const eventListeners = () => {
     // check to make sure e.target.id is not empty
     if (e.target.id) {
       // get the video ID off the button ID
-      // find the index of the object in the array
+     const [method, videoId] = e.target.id.split("--")
 
+      // find the index of the object in the array THIS IS WHERE I WAS
+                 
       // only listen for events with "watch" or "delete" included in the string
 
       // if watch: grab the ID and rerender the videoPlayer with that ID as an argument
@@ -215,7 +226,7 @@ const startApp = () => {
   videoPlayer();
   filterButtons();
   cardsOnDom(data);
-  // eventListeners(); // always last
+  eventListeners(); // always last
 };
 
 startApp();
